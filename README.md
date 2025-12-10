@@ -1,6 +1,6 @@
 # dc-re-ghidra
 This is a small script/data for easing the reverse engineering of Dreamcast software
-using Ghidra. dreamcast.java is a script that can be run in the Ghidra Script Manager
+using Ghidra. `DreamcastRE.java` is a script that can be run in the Ghidra Script Manager
 or modified via Eclipse. It does several things, and all are done best-effort so that
 if any step fails (e.g. because things are already defined) the script will continue.
 
@@ -24,11 +24,11 @@ SDK functions are being called.
     - SDK Symbols for functions <30 bytes are not renamed as the smaller a function is, the more likely it is to be a common pattern/ambiguous.
 
 # Usage
-1. Open Ghidra and load a 16 MiB ram binary as superh little-endian to 8c000000.
-2. Open the program and let auto-analysis run.
-3. Run this script in the script manager. You can modify an existing script or create
-   a new java-based script from the manager and copy-paste this there. 
-    - Note that currently the script expects the SDK symbols file to be copied to `/tmp/sdk-symbols.txt`.
+1. Clone this repo, or just download the files `DreamcastRE.java` and `sdk-symbols.txt` into the same folder.
+2. Open Ghidra and load a 16 MiB ram binary as superh little-endian to 0x8c000000.
+3. Open the program and let the auto-analysis run.
+4. Install the script: in the Ghidra CodeBrowser, open Window → Script Manager → Manage Script Directories → ➕ → select the folder with the script files.
+5. Run the script: in the Script Manager window, select and run `DreamcastRE.java`.
 
 # TODO:
 1. Name SDK symbols by their plane name instead of the "fully-qualified" names.

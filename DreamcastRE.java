@@ -1,11 +1,12 @@
 //
 //@author sh4
-//@category
+//@category Dreamcast
 //@keybinding
 //@menupath
 //@toolbar
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,11 +19,12 @@ import ghidra.program.model.listing.Data;
 import ghidra.program.model.mem.MemoryBlock;
 import ghidra.program.model.symbol.SourceType;
 import ghidra.program.model.symbol.Symbol;
+import generic.jar.ResourceFile;
 
-public class test extends GhidraScript {
+public class DreamcastRE extends GhidraScript {
 	Map<Long, SDKSymbol> sdk_symbols;
 
-	public test() {
+	public DreamcastRE() {
 
 	}
 
@@ -492,7 +494,19 @@ public class test extends GhidraScript {
 
 		// Load SDK symbols from text file
 		this.sdk_symbols = new HashMap<>();
-		loadSDKSymbols("/tmp/sdk-symbols.txt");
+
+		// loadSDKSymbols("/tmp/sdk-symbols.txt");
+
+		// Load symbols from script directory
+		ResourceFile scriptDir  = null;
+		ResourceFile scriptFile = getSourceFile();
+		if (scriptFile != null)
+			scriptDir  = scriptFile.getParentFile();
+		if (scriptDir == null) {
+			printerr("Could not determine the script's source file path.");
+		} else {
+			loadSDKSymbols(scriptDir + "/sdk-symbols.txt");
+        }
 
 		// Setup SH4 MMIO block and registers
 		setupSH4MMIO();
